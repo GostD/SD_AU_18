@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**Меняет текущую директорию*/
 public class Cd implements Task {
     @Override
     public int main(ProcessContext context, List<String> args) {
@@ -35,11 +36,6 @@ public class Cd implements Task {
             }
 
         }
-//        try {
-//            context.getStdout().write((context.getWorkingDir().toAbsolutePath().toString() + "\n").getBytes());
-//        } catch (IOException e) {
-//            return 1;
-//        }
 
         return 0;
     }

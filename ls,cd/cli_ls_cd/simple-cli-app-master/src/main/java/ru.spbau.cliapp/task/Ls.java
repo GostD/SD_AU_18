@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**Печатает содержимое текущей дирректории*/
 public class Ls implements Task {
     @Override
     public int main(ProcessContext context, List<String> args) {
@@ -22,6 +23,7 @@ public class Ls implements Task {
         }
         File folder = new File(str);
         File[] ls = folder.listFiles();
+        if (ls == null) return 0;
         for (File file : ls) {
             try {
                 context.getStdout().write((file.getName() + '\n').getBytes());
@@ -29,13 +31,6 @@ public class Ls implements Task {
                 return 1;
             }
         }
-
-//        try {
-//            context.getStdout().write((context.getWorkingDir().toAbsolutePath().toString() + "\n").getBytes());
-//        } catch (IOException e) {
-//            return 1;
-//        }
-
         return 0;
     }
 
