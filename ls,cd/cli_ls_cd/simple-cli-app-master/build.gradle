@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+
+group 'ru.spbau'
+version '1.0-SNAPSHOT'
+
+jar {
+    manifest {
+//        attributes 'Main-Class': 'ru.spbau.cliapp.ApplicationKt'
+    }
+
+    // this is to put all deps inside generated jar
+    // temporary solution
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+}
