@@ -6,6 +6,7 @@ import java.io.*;
 import static org.junit.Assert.assertTrue;
 
 public class Tests {
+
     public static boolean test(String text, String result) {
         String out = "";
         try (PipedOutputStream pout = new PipedOutputStream(); PipedInputStream pin = new PipedInputStream();) {
