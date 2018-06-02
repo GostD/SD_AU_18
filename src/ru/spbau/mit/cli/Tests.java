@@ -43,16 +43,27 @@ public class Tests {
     }
 
     @Test
-    public void grepTest() {
+    public void grepSimpleTest() {
         assertTrue(test("grep idea .gitignore\n", ".idea"));
         assertTrue(test("cat .gitignore | grep idea\n", ".idea"));
+    }
+
+    @Test
+    public void grepMultilineTest() {
         assertTrue(test("grep -A 1 idea .gitignore\n", ".idea\nSoftDesign.iml"));
+    }
+
+    @Test
+    public void wholeWordTest() {
         assertTrue(test("grep -w idea .gitignore\n", ".idea"));
         assertTrue(test("grep -w id .gitignore\n", ""));
+    }
+
+    @Test
+    public void caseInsensitiveTest() {
         assertTrue(test("grep iDeA .gitignore\n", ""));
         assertTrue(test("grep -i iDeA .gitignore\n", ".idea"));
-
-
     }
+
 
 }
