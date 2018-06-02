@@ -3,3 +3,4 @@
 SoftDesign.iml
 .DS_Store
 **/.DS_Store
+target/test-classes

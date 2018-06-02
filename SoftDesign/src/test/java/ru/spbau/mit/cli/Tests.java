@@ -40,7 +40,7 @@ public class Tests {
 
     @Test
     public void wcTest() {
-        assertTrue(test("wc .gitignore\n", "3 3 26"));
+        assertTrue(test("wc .gitignore\n", "5 5 49"));
     }
 
     @Test
