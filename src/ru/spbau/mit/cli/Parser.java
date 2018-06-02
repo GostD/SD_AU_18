@@ -23,7 +23,7 @@ public class Parser {
             if (current == '|') {
                 if (!comScan)  {
                     if (argBuild.length() != 0) {
-                        args.add(new Arg(argBuild.toString()));
+                        args.add(new Argument(argBuild.toString()));
                         argBuild = new StringBuilder();
                     }
                 }
@@ -43,13 +43,13 @@ public class Parser {
                     cmdBuild = new StringBuilder();
                 } else {
                     if (argBuild.length() != 0) {
-                        args.add(new Arg(argBuild.toString()));
+                        args.add(new Argument(argBuild.toString()));
                         argBuild = new StringBuilder();
                     }
                 }
             } else if (current == '=') {
                 if (comScan) {
-                    args.add(new Arg(cmdBuild.toString()));
+                    args.add(new Argument(cmdBuild.toString()));
                     cmdBuild = new StringBuilder();
                     cmd = "=";
                     comScan = false;
@@ -66,7 +66,7 @@ public class Parser {
             } else if ((current == '"') || (current == '\'')) {
                 arg = parseStringArg(i + 1, current);
                 i = helpInd - 1;
-                args.add(new StringArg(arg));
+                args.add(new Argument(arg));
                 arg = "";
                 if (i == len - 1) {
                     list.add(new CommandWithArgs(buildCommand(cmd), args));
@@ -77,7 +77,7 @@ public class Parser {
                     list.add(new CommandWithArgs(buildCommand(cmdBuild.toString()), args));
                 } else {
                     argBuild.append(current);
-                    args.add(new Arg(argBuild.toString()));
+                    args.add(new Argument(argBuild.toString()));
                     list.add(new CommandWithArgs(buildCommand(cmd), args));
                 }
             } else {
@@ -126,7 +126,7 @@ public class Parser {
         String res;
         if (cur == '"' | cur == '\'') {
             res = parseStringArg(i + 1, cur);
-            return new StringArg(res);
+            return new Argument(res);
         } else {
             StringBuilder build = new StringBuilder();
             while (cur != ' ') {

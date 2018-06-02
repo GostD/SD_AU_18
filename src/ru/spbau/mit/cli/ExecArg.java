@@ -3,7 +3,7 @@ package ru.spbau.mit.cli;
 /**Аргументы которые требуют вычисления*/
 public class ExecArg extends Argument {
     public ExecArg(String str) {
-        arg = str;
+        super(str);
     }
 
     /**Строковое представление аргумента*/

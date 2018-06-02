@@ -39,7 +39,7 @@ public class Tests {
 
     @Test
     public void wcTest() {
-        assertTrue(test("wc src/ru/spbau/mit/cli/Arg.java\n", "12 30 245"));
+        assertTrue(test("wc .gitignore\n", "3 3 26"));
     }
 
     @Test
