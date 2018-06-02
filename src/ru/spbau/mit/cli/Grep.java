@@ -53,11 +53,13 @@ public class Grep implements Command {
                     .parse(args.stream()
                             .map(Argument::getValue).toArray(String[]::new));
         } catch (ParameterException e) {
-            throw new Error(e.getMessage());
+            System.out.println(e.getMessage());
+            return null;
         }
 
         if (otherArgs.isEmpty()) {
-            throw new Error("regexp expected");
+            System.out.println("regexp expected");
+            return null;
         }
         String regexp = otherArgs.get(0);
         if (wholeWord) regexp = "\\b" + regexp + "\\b";
@@ -82,7 +84,8 @@ public class Grep implements Command {
                 if (pin != null) {
                     fReader = new BufferedReader(new InputStreamReader(pin));
                 } else {
-                    throw new Error("empty input");
+                    System.out.println("empty input");
+                    return null;
                 }
             }
             List<String> lines = fReader.lines()
