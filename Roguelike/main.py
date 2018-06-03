@@ -46,6 +46,7 @@ level = [
 
 def main():
     pygame.init()
+    assert pygame is not None
     screen = pygame.display.set_mode(DISPLAY)
     pygame.display.set_caption("Roguelike")
     bg = Surface((WIN_WIDTH, WIN_HEIGHT))
@@ -66,6 +67,7 @@ def main():
 
             elif col == "+":
                 mob = Mob(x, y)
+                assert mob is not None
                 entities.add(mob)
                 enemies.append(mob)
                 blockWithEnemies.append(mob)
@@ -76,6 +78,8 @@ def main():
             x += BLOCK_WIDTH
         y += BLOCK_HEIGHT
         x = 0
+
+    assert hero is not None
 
     entities.add(hero)
 
@@ -95,6 +99,8 @@ def main():
     inven = Inventory()
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
+
+
     while 1:
         timer.tick(60)
         for e in pygame.event.get():
@@ -125,9 +131,6 @@ def main():
             if e.type == KEYDOWN and e.key == K_i:
                 inv = not inv
 
-            if e.type == KEYDOWN and e.key == K_1:
-                print(str(hero.rect.x) + " " + str(hero.rect.y))
-
         font = pygame.font.Font(None, 25)
 
         screen.blit(bg, (0, 0))
@@ -140,17 +143,20 @@ def main():
         else:
             neck, bolt = inven.getEffects()
             hero.update(left, right, up, down, blocks, neck)
+            assert hero is not None
             if hero.dead():
                 raise SystemExit("QUIT")
             for mob in enemies:
                 mob.update(blocks, hero.rect, level)
-
+                assert mob is not None
             if space and not drawFb:
                 drawFb = True
                 hX, hY, hXvel, hYvel = hero.getCoords()
                 fb = Fireball(hX, hY, hXvel, hYvel)
+                assert fb is not None
                 fb.draw(screen, camera)
             elif drawFb:
+                assert fb is not None
                 drawFb = fb.update(blockWithEnemies, bolt)
                 fb.draw(screen, camera)
 
