@@ -96,6 +96,7 @@ def main():
     drawFb = False
     fb = None
     inv = False
+    mobs_alive = True
     inven = Inventory()
 
     camera = Camera(camera_configure, total_level_width, total_level_height)
@@ -144,11 +145,21 @@ def main():
             neck, bolt = inven.getEffects()
             hero.update(left, right, up, down, blocks, neck)
             assert hero is not None
-            if hero.dead():
+            if hero.dead() or not mobs_alive:
+                txt = "YOU WIN!"
+                if not mobs_alive:
+                    "YOU_LOSE!"
+                text = font.render(txt, True, (255, 0, 0))
+                screen.blit(text, [360, 300])
+                pygame.display.update()
+                time.wait(2000)
                 raise SystemExit("QUIT")
+            any_alive = False
             for mob in enemies:
                 mob.update(blocks, hero.rect, level)
                 assert mob is not None
+                any_alive = any_alive or not mob.dead()
+            mobs_alive = any_alive
             if space and not drawFb:
                 drawFb = True
                 hX, hY, hXvel, hYvel = hero.getCoords()
