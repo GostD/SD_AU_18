@@ -4,7 +4,7 @@ WIDTH = 22
 HEIGHT = 32
 COLOR = "#888888"
 
-#Базовый класс для движущихся объектов
+"""Базовый класс для движущихся объектов"""
 class Drawable(sprite.Sprite):
     def __init__(self, x, y):
         sprite.Sprite.__init__(self)
@@ -16,11 +16,11 @@ class Drawable(sprite.Sprite):
         self.image.set_colorkey(Color(COLOR))
         self.rect = Rect(x, y, WIDTH, HEIGHT)
 
-    #Отрисовка
+    """Отрисовка"""
     def draw(self, screen, camera):
         screen.blit(self.image, camera.apply(self))
 
-    #Вычисление ускорения по нажатым клавишам
+    """Вычисление ускорения по нажатым клавишам"""
     def rec(self, left, right, up, down, blocks, speed):
         if left:
             self.xvel = -speed
@@ -46,7 +46,7 @@ class Drawable(sprite.Sprite):
         self.rect.x += self.xvel
         self.collide(self.xvel, 0, blocks)
 
-    #Обработка столкновений
+    """Обработка столкновений"""
     def collide(self, xvel, yvel, blocks):
         for p in blocks:
             if sprite.collide_rect(self, p) and not p.dead():
@@ -59,6 +59,6 @@ class Drawable(sprite.Sprite):
                 if yvel < 0:
                     self.rect.top = p.rect.bottom
 
-    #Информация о смерти
+    """Информация о смерти"""
     def dead(self):
         return False

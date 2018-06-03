@@ -8,7 +8,7 @@ FIREBALL_POWER = 300
 
 ICON_DIR = os.path.dirname(__file__)
 
-#Класс фаербола
+"""Класс фаербола"""
 class Fireball(Drawable):
     def __init__(self, x, y, xvel, yvel, spd=0, decrease=0):
         Drawable.__init__(self, x, y)
@@ -27,12 +27,12 @@ class Fireball(Drawable):
         self.velocity(xvel, yvel)
         self.image = image.load("%s/images/bolt1.png" % ICON_DIR)
 
-    #Вычисление
+    """Вычисление"""
     def velocity(self, xvel, yvel):
         self.xvel = (xvel > 0) * self.speed - (xvel < 0) * self.speed
         self.yvel = (yvel > 0) * self.speed - (yvel < 0) * self.speed
 
-    #Обновление координат силы и ускорения
+    """Обновление координат силы и ускорения"""
     def update(self, blocks, bolt):
         self.power = FIREBALL_POWER - self.decrease + bolt[0]
         self.speed = FIREBALL_SPEED - self.spd + bolt[1]
@@ -46,7 +46,7 @@ class Fireball(Drawable):
         bangY = self.collide(self.xvel, 0, blocks)
         return bangX and bangY
 
-    #Обработка столкновений
+    """Обработка столкновений"""
     def collide(self, xvel, yvel, blocks):
         for p in blocks:
             if sprite.collide_rect(self, p) and not p.dead():

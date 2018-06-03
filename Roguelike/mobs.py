@@ -7,7 +7,7 @@ HP = 1000
 ICON_DIR = os.path.dirname(__file__)
 
 
-#Класс моба
+"""Класс моба"""
 class Mob(Drawable):
     def __init__(self, x, y):
         Drawable.__init__(self, x, y)
@@ -17,7 +17,7 @@ class Mob(Drawable):
         self.fb = None
         self.slow_time = 0
 
-    #Обновление информации о положении и харрактеристик
+    """Обновление информации о положении и харрактеристик"""
     def update(self, blocks, rect, level):
         left = right = up = down = 0
         if self.dist(rect.x, rect.y) < 600 and not self.dead():
@@ -45,7 +45,7 @@ class Mob(Drawable):
         if self.slow_time > 100:
             self.speed = MOB_SPEED
 
-    #Определение направления движения
+    """Определение направления движения"""
     def getDir(self, blockX, levString):
         leftSt = levString[:blockX]
         rightSt = levString[blockX + 1:]
@@ -60,11 +60,11 @@ class Mob(Drawable):
             right = not left
             return left, right
 
-    #Взятие координат
+    """Взятие координат"""
     def getCoords(self):
         return self.rect.x, self.rect.y, self.xvel, self.yvel
 
-    #Отрисовка
+    """Отрисовка"""
     def draw(self, screen, camera):
         if self.health > 0:
             screen.blit(self.image, camera.apply(self))
@@ -74,11 +74,11 @@ class Mob(Drawable):
                 if not res:
                     self.fb = None
 
-    #Функция расстояния
+    """Функция расстояния"""
     def dist(self, x, y):
         return sqrt(pow(x - self.rect.x, 2) + pow(y - self.rect.y, 2))
 
-    #Обработка попадания снаряда
+    """Обработка попадания снаряда"""
     def engage(self, power, slow):
         self.health -= power
         self.speed = MOB_SPEED - slow
@@ -90,15 +90,15 @@ class Mob(Drawable):
         else:
             print("Dragon dead")
 
-    #Информация о смерти
+    """Информация о смерти"""
     def dead(self):
         return self.health < 0
 
-    #Выстрел
+    """Выстрел"""
     def fire(self, left):
         if self.fb is None:
             self.fb = Fireball(self.rect.x, self.rect.y, int(2*(0.5 - left)), 0, 5, 200)
 
-    #Обновление текущего блока с препятствиями и игроком
+    """Обновление текущего блока с препятствиями и игроком"""
     def setBlock(self, block):
         self.block = block

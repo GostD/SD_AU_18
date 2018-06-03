@@ -20,9 +20,9 @@ EFFECTS = [[
             ]]
 
 
-#Класс для инвертаря
+"""Класс для инвертаря"""
 class Inventory(sprite.Sprite):
-    #Класс ячейки инвертаря
+    """Класс ячейки инвертаря"""
     class Module(sprite.Sprite):
         def __init__(self, x, y):
             sprite.Sprite.__init__(self)
@@ -43,15 +43,15 @@ class Inventory(sprite.Sprite):
             self.xBase = INV_WIDTH*x
             self.yBase = INV_HEIGHT*y
 
-        #Отрисовка ячейки
+        """Отрисовка ячейки"""
         def draw(self, screen):
             screen.blit(self.image, (self.xBase, self.yBase))
 
-        #Возвращение информации о предмете в ячейке
+        """Возвращение информации о предмете в ячейке"""
         def getType(self):
             return self.img, self.type, self.effects
 
-        #Изменение содержимого ячейки
+        """Изменение содержимого ячейки"""
         def swapImg(self, img, effects):
             self.image = image.load(("%s/images/" + img) % ICON_DIR)
             self.effects = effects
@@ -80,7 +80,7 @@ class Inventory(sprite.Sprite):
         self.modules.append(self.neckage_block)
         self.modules.append(self.fireball_block)
 
-    #Изменения во время просмотра инвертаря
+    """Изменения во время просмотра инвертаря"""
     def update(self, left, right, up, down, space):
         if space:
             mod = self.modules[self.curPointer[1]*3 + self.curPointer[0]]
@@ -101,12 +101,12 @@ class Inventory(sprite.Sprite):
             if down:
                 self.curPointer[1] = min(2, self.curPointer[1] + 1)
 
-    #Отрисовка инвентаря
+    """Отрисовка инвентаря"""
     def draw(self, screen):
         for i in self.modules:
             i.draw(screen)
         screen.blit(self.pointer, (self.curPointer[0]*INV_WIDTH, self.curPointer[1]*INV_HEIGHT))
 
-    #Возвращение эффектов подвески и фаербола
+    """Возвращение эффектов подвески и фаербола"""
     def getEffects(self):
         return self.neckage_block.effects, self.fireball_block.effects
